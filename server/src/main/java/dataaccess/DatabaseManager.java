@@ -36,7 +36,7 @@ public class DatabaseManager {
     /**
      * Creates the database if it does not already exist.
      */
-    static void createDatabase() throws DataAccessException {
+    public static void createDatabase() throws DataAccessException {
         try {
             var statement = "CREATE DATABASE IF NOT EXISTS " + DATABASE_NAME;
             var conn = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
@@ -67,6 +67,16 @@ public class DatabaseManager {
             return conn;
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());
+        }
+    }
+
+    static void closeConnection(Connection conn) throws DataAccessException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException exception) {
+                throw new DataAccessException(exception.getMessage());
+            }
         }
     }
 }
