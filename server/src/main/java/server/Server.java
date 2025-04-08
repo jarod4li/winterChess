@@ -22,9 +22,17 @@ public class Server {
     public int run(int desiredPort) {
         Spark.port(desiredPort);
 
-        UserDAO user = new UserDataDAO();
-        AuthDAO auth = new AuthDataDAO();
-        GameDAO game = new GameDataDAO();
+        UserDAO user = null;
+        AuthDAO auth = null;
+        GameDAO game = null;
+        try {
+            user = new MySQLUserDAO();
+            auth = new MySQLAuthDAO();
+            game = new MySQLGameDAO();
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
+
         userService = new UserService(user, auth);
         gameService = new GameService(game, auth);
         clearService = new ClearService(user, game, auth);

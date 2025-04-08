@@ -1,7 +1,12 @@
 package dataaccess;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import dataaccess.DataAccessException;
+import dataaccess.MySQLUserDAO;
 import model.UserData;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MySQLUserTest {
     private MySQLUserDAO userDAO;
@@ -21,7 +26,6 @@ public class MySQLUserTest {
     }
 
     @Test
-    @DisplayName("nametest")
     public void testAddUserWithUsernamePositive() throws DataAccessException {
         userDAO.addUser(username, password, email);
         UserData userData = userDAO.getUserWithUsername(username);

@@ -1,8 +1,8 @@
 package dataaccess;
 
 import model.UserData;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,14 +72,31 @@ public class MySQLUserDAO implements UserDAO {
         return null;
     }
 
+//    @Override
+//    public void addUser(String username, String password, String email) throws DataAccessException {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        String hashedPassword = encoder.encode(password);
+//        try (Connection conn = DatabaseManager.getConnection();
+//             PreparedStatement statement = conn.prepareStatement("INSERT INTO users (username, password, email) VALUES (?, ?, ?)")) {
+//            statement.setString(1, username);
+//            statement.setString(2, password);
+//            statement.setString(3, email);
+//            statement.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            throw new DataAccessException("Error: " + e.getMessage());
+//        }
+//    }
+
     @Override
     public void addUser(String username, String password, String email) throws DataAccessException {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String hashedPassword = encoder.encode(password);
+        // Use jbcrypt's BCrypt instead of Spring Security's encoder
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement statement = conn.prepareStatement("INSERT INTO users (username, password, email) VALUES (?, ?, ?)")) {
             statement.setString(1, username);
-            statement.setString(2, password);
+            statement.setString(2, hashedPassword); // Store hashed password
             statement.setString(3, email);
             statement.executeUpdate();
 
