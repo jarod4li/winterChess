@@ -1,53 +1,32 @@
 package model;
 
-import java.util.Objects;
-
 public class UserData {
-    private final String username;
-    private final String password;
-    private final String email;
-
+    private String username;
+    private String password;
+    private String email;
     public UserData(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
-
-    public String getName() {
-        return username;
+    public String getName(){return username;}
+    public void setName(String username){
+        this.username = username;
     }
-
-    public String getPassword() {
+    public String getPassword(){
         return password;
     }
+    public void setPassword(String password){
 
-    public String getEmail() {
+        this.password = password;
+    }
+    public String getEmail(){
+
         return email;
     }
+    public void setEmail(String email){
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserData user = (UserData) o;
-
-        if (!Objects.equals(username, user.username)) return false;
-        if (!Objects.equals(password, user.password)) return false;
-        return Objects.equals(email, user.email);
+        this.email = email;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, password, email);
-    }
-
-    @Override
-    public String toString() {
-        return "UserData{" +
-                "userName='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }
