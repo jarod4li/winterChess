@@ -20,7 +20,7 @@ public class UserTests {
     }
     @Test
     public void clearTest(){
-        UserData jaredCred = new UserData("Jaredizer" , "123", "jbou234@gmail.com");
+        UserData jaredCred = new UserData("Jared" , "123", "jbou234@gmail.com");
         try {
             myUser.createUser(jaredCred.getName(), jaredCred.getPassword(), jaredCred.getEmail());
         }

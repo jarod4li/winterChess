@@ -112,7 +112,7 @@ public class GameTests {
     public void playerNamerPassTest(){
         try {
             int jaredId = myGame.createGame("Jared's Game");
-            String username = "Jaredizer";
+            String username = "Jared";
             myGame.playerNamer(username, jaredId, ChessGame.TeamColor.WHITE);
             GameData jaredGame = myGame.returnGame(jaredId);
             assertEquals(username, jaredGame.getWhiteUsername());
